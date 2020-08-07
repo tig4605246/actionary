@@ -6,4 +6,5 @@ ls
 python --version
 docker run --rm tig4605246/config-checker-python:latest python3 --version
 bash jenkinsfile/err.sh
-echo "88"
+STATUS=$?
+echo "i get $STATUS"
