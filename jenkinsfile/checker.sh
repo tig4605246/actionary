@@ -1,8 +1,8 @@
 #!/bin/bash
 
 #Please declare environment variables:
-APP_SLACK_WEBHOOK="https://hooks.slack.com/services/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"
-APP_SLACK_CHANNEL="kh-test"
+APP_SLACK_WEBHOOK="https://hooks.slack.com/services/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"
+#APP_SLACK_CHANNEL="kh-test"
 #APP_SLACK_USERNAME (optional)
 #APP_SLACK_ICON_EMOJI (optional)
 # You may also declare them in ~/.slackrc file.
