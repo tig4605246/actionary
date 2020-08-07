@@ -1,0 +1,93 @@
+// NOTE:
+//   we are now using a legacy Jenkins feature `Trigger builds remotely`
+//   but is NOT supported by Jenkinsfile, need to configure it manually
+//   DO remember to check if the paramter is set correctly after apply.
+//
+//   also, any change within the block of `properties()` might result in next
+//   build failure, it's limitation of Jenkins WebUI limitation by design,
+//   it's not a bug, don't report it as bug!!!
+import hudson.model.*
+
+properties([
+    buildDiscarder(
+        logRotator(
+            numToKeepStr: '30'
+        )
+    ),
+    disableConcurrentBuilds(),
+    parameters([
+        string(
+            defaultValue: '',
+            description: 'Commit ID of the Configs Changes',
+            name: 'REVISION',
+            trim: true
+        ),
+        string(
+            defaultValue: etcdServiceEndpointsStag.join(','),
+            description: 'ETCD Service Endpoints List for the 17App Service (Staging)',
+            name: 'ENDPOINTS_17APP_STA',
+            trim: true
+        ),
+        string(
+            defaultValue: etcdServiceEndpointsProd.join(','),
+            description: 'ETCD Service Endpoints List for the 17App Service (Production)',
+            name: 'ENDPOINTS_17APP_PROD',
+            trim: true
+        ),
+        string(
+            defaultValue: etcdServiceEndpointsStagWave.join(','),
+            description: 'ETCD Service Endpoints List for the Wave Service (Staging)',
+            name: 'ENDPOINTS_WAVE_STA',
+            trim: true
+        ),
+        string(
+            defaultValue: etcdServiceEndpointsProdWave.join(','),
+            description: 'ETCD Service Endpoints List for the Wave Service (Production)',
+            name: 'ENDPOINTS_WAVE_PROD',
+            trim: true
+        ),
+        booleanParam(
+            defaultValue: true,
+            description: 'Enable Slack Notification?',
+            name: 'SEND_SLACK'
+        )]
+    )
+])
+
+
+node('gcp') { timestamps { ansiColor('xterm') {
+  stage('Parse Payload') {
+    // cleanup before start
+    deleteDir()
+
+    // prepare for configs repository
+    sh('mkdir -p configs')
+    dir('configs') {
+      git url: 'https://github.com/tig4605246/actionary.git',
+          branch: 'master'
+    }
+
+    def payloadString = build.buildVariableResolver.resolve("payload")
+
+    payloadObject = new groovy.json.JsonSlurper().parseText(payloadString)
+
+    targetCommit = payloadObject.pull_request.head.sha
+
+    sh("echo " + targetCommit)
+  } // end of stage
+//123456
+  
+} /* end of ansiColor */ } /* end of timestamps */ } /* end of node */
+
+def postNotification(message, color) {
+  if (params.SEND_SLACK) {
+    slackSend(
+      baseUrl: 'https://17media.slack.com/services/hooks/jenkins-ci/',
+      tokenCredentialId: '883d8435-4b52-48cb-a282-c7995cb26b69',
+      channel: '#dev-event-configs',
+      failOnError: true,
+      message: message,
+      color: color,
+    )
+  }
+}
