@@ -14,8 +14,8 @@ main(){
     bash jenkinsfile/err.sh
     STATUS=$?
     echo "i get $STATUS"
-    slack "Did I send something?"
-    curl -X POST -H 'Content-type: application/json' --data '{"text":"Hello, World!"}' https://hooks.slack.com/services/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
+    echo "Did I send something?"
+    curl -X POST -H 'Content-type: application/json' --data '{"text":"Hello, World!"}' https://hooks.slack.com/services/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
 
 }
 
