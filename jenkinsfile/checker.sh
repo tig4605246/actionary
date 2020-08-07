@@ -87,4 +87,4 @@ slack() {
   send_message_to_channels
 }
 
-# main $@
+main $@
