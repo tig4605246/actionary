@@ -52,7 +52,7 @@ properties([
             name: 'SEND_SLACK'
         )]
     )
-])
+])//123
 
 
 node('gcp') { timestamps { ansiColor('xterm') {
