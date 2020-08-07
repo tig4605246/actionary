@@ -5,5 +5,5 @@ echo "listing current dir"
 ls
 python --version
 docker run --rm tig4605246/config-checker-python:latest python3 --version
-bash err.sh
+bash jenkinsfile/err.sh
 echo "88"
