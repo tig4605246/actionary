@@ -4,4 +4,4 @@ printenv
 echo "listing current dir"
 ls
 python --version
-docker run --rm ubuntu:16.04 echo 123
+docker run --rm tig4605246/config-checker-python:latest python3 --version
