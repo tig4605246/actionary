@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #Please declare environment variables:
-APP_SLACK_WEBHOOK="https://hooks.slack.com/services/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"
+APP_SLACK_WEBHOOK="https://hooks.slack.com/services/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"
 APP_SLACK_CHANNEL="kh-test"
 #APP_SLACK_USERNAME (optional)
 #APP_SLACK_ICON_EMOJI (optional)
@@ -87,4 +87,4 @@ slack() {
   send_message_to_channels
 }
 
-main $@
+# main $@
