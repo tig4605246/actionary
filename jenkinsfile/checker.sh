@@ -14,7 +14,7 @@ main(){
     echo "Did I send something?"
     #curl -X POST -H 'Content-type: application/json' --data "{\"text\":\"Config commit:\n*<https://github.com/tig4605246/actionary/commit/$GIT_COMMIT | $GIT_COMMIT>*\"}" ${SLACK}
 #    curl -X POST -H 'Content-type: application/json' --data @jenkinsfile/payload.json ${SLACK}   
-    curl -X POST -H 'Content-type: application/json' --data @${TEMPLATE} ${SLACK}
+    curl -X POST -H 'Content-type: application/json' --data "{\"blocks\":[{\"type\":\"section\",\"text\":{\"type\":\"mrkdwn\",\"text\":\"Config commit:\n*<https://github.com/tig4605246/actionary/commit/$COMMIT_URL | $GIT_COMMIT>*\"}},{\"type\":\"section\",\"text\":{\"type\":\"mrkdwn\",\"text\":\"*Result:*\nTests Passed\n*Commited By:*\n $GIT_COMMITER \"}}]}" ${SLACK}
 }
 
 main $@
