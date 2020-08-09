@@ -1,0 +1,25 @@
+{
+	"blocks": [
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": "Config commit:\n*<google.com|3a20a2cd8e3df7ccae88c632d1c62ade21c140cf>*"
+			}
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": "*Result:*\nTests Passed\n*Commited By:*\nkevinhsu@17.media"
+			}
+		},
+		{
+			"type": "section",
+			"text": {
+				"type": "mrkdwn",
+				"text": "@sre"
+			}
+		}
+	]
+}
