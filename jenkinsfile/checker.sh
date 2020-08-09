@@ -12,7 +12,7 @@ main(){
     STATUS=$?
     echo "i get $STATUS"
     echo "Did I send something?"
-    curl -X POST -H 'Content-type: application/json' --data "{\"text\":\"Config commit:\n*< https://github.com/tig4605246/actionary/commit/$GIT_COMMIT | $GIT_COMMIT >*\"}" ${SLACK}
+    curl -X POST -H 'Content-type: application/json' --data "{\"text\":\"Config commit:\n*<https://github.com/tig4605246/actionary/commit/$GIT_COMMIT | $GIT_COMMIT>*\"}" ${SLACK}
 #    curl -X POST -H 'Content-type: application/json' --data @jenkinsfile/payload.json ${SLACK}   
     #curl -X POST -H 'Content-type: application/json' --data @${TEMPLATE} ${SLACK}
 }
