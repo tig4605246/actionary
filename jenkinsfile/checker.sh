@@ -1,7 +1,7 @@
 #!/bin/bash
 #TEMPLATE="{\"blocks\":[{\"type\":\"section\",\"text\":{\"type\":\"mrkdwn\",\"text\":\"Config commit:\n*<https://github.com/tig4605246/actionary/commit/$COMMIT_URL | $GIT_COMMIT>*\"}},{\"type\":\"section\",\"text\":{\"type\":\"mrkdwn\",\"text\":\"*Result:*\nTests Passed\n*Commited By:*\n $GIT_COMMITER \"}}]}"
 ERROR_TAGGING=',{"type":"section","text":{"type":"mrkdwn","text":"@sre"}}'
-NAME=`git show -s --pretty=\"%an <%ae>\" ${GIT_COMMIT}`
+COMMITER_INFO=`git log  --pretty=format:'%an (%ae)' ${GIT_COMMIT}^! `
 
 main(){
     printenv
@@ -16,7 +16,7 @@ main(){
     echo "Did I send something?"
     #curl -X POST -H 'Content-type: application/json' --data "{\"text\":\"Config commit:\n*<https://github.com/tig4605246/actionary/commit/$GIT_COMMIT | $GIT_COMMIT>*\"}" ${SLACK}
 #    curl -X POST -H 'Content-type: application/json' --data @jenkinsfile/payload.json ${SLACK}   
-    curl -X POST -H 'Content-type: application/json' --data "{\"blocks\":[{\"type\":\"section\",\"text\":{\"type\":\"mrkdwn\",\"text\":\"Config commit:\n*<https://github.com/tig4605246/actionary/commit/$COMMIT_URL | $GIT_COMMIT>*\"}},{\"type\":\"section\",\"text\":{\"type\":\"mrkdwn\",\"text\":\"*Build URL:*\n*<${BUILD_URL}|URL>*\n*Result:*\nTests Passed\n*Commited By:*\n $GIT_COMMITER \"}}]}" ${SLACK}
+    curl -X POST -H 'Content-type: application/json' --data "{\"blocks\":[{\"type\":\"section\",\"text\":{\"type\":\"mrkdwn\",\"text\":\"Config commit:\n*<https://github.com/tig4605246/actionary/commit/$COMMIT_URL | $GIT_COMMIT>*\"}},{\"type\":\"section\",\"text\":{\"type\":\"mrkdwn\",\"text\":\"*Build URL:*\n*<${BUILD_URL}|URL>*\n}},{\"type\":\"section\",\"text\":{\"type\":\"mrkdwn\",\"text\":\"*Result:*\nTests Passed\n*Commited By:*\n $COMMITER_INFO \"}}]}" ${SLACK}
 }
 
 main $@
